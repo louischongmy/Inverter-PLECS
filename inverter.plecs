@@ -53,9 +53,9 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [0, 23; 2560, 1349]
+    Location      [0, 24; 2560, 1350]
     ZoomFactor    1.96257
-    SliderPosition [-1, 28]
+    SliderPosition [-1, 27]
     ShowBrowser   off
     BrowserWidth  100
     Component {
@@ -798,26 +798,6 @@ Plecs {
       Parameter {
         Variable      "StateSpaceInlining"
         Value         "1"
-        Show          off
-      }
-    }
-    Component {
-      Type          Constant
-      Name          "P_PV"
-      Show          on
-      Position      [185, 590]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Frame         [-20, -10; 20, 10]
-      Parameter {
-        Variable      "Value"
-        Value         "3000"
-        Show          off
-      }
-      Parameter {
-        Variable      "DataType"
-        Value         "10"
         Show          off
       }
     }
@@ -2459,78 +2439,6 @@ Plecs {
       }
     }
     Component {
-      Type          Sum
-      Name          "Sum4"
-      Show          off
-      Position      [250, 590]
-      Direction     up
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "IconShape"
-        Value         "2"
-        Show          off
-      }
-      Parameter {
-        Variable      "Inputs"
-        Value         "|++"
-        Show          off
-      }
-      Parameter {
-        Variable      "DataType"
-        Value         "11"
-        Show          off
-      }
-      Parameter {
-        Variable      "DataTypeOverflowMode"
-        Value         "1"
-        Show          off
-      }
-    }
-    Component {
-      Type          Step
-      Name          "Step"
-      Show          on
-      Position      [225, 620]
-      Direction     right
-      Flipped       off
-      LabelPosition westSouthwest
-      Parameter {
-        Variable      "Time"
-        Value         "0.3"
-        Show          on
-      }
-      Parameter {
-        Variable      "Before"
-        Value         "0"
-        Show          off
-      }
-      Parameter {
-        Variable      "After"
-        Value         "-1500"
-        Show          on
-      }
-      Parameter {
-        Variable      "DataType"
-        Value         "10"
-        Show          off
-      }
-    }
-    Component {
-      Type          ManualSignalSwitch
-      Name          "Mode"
-      Show          on
-      Position      [295, 575]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "SwitchState"
-        Value         "1"
-        Show          off
-      }
-    }
-    Component {
       Type          From
       Name          "From1"
       Show          off
@@ -3262,6 +3170,184 @@ Plecs {
         Show          on
       }
     }
+    Component {
+      Type          Subsystem
+      Name          "Sub"
+      Show          on
+      Position      [245, 620]
+      Direction     up
+      Flipped       off
+      LabelPosition none
+      Frame         [-20, -20; 20, 20]
+      SampleTime    "-1"
+      CodeGenDiscretizationMethod "2"
+      CodeGenTarget "Generic"
+      MaskDisplayLang "2"
+      MaskIconFrame on
+      MaskIconOpaque off
+      MaskIconRotates on
+      Terminal {
+        Type          Output
+        Position      [24, 0]
+        Direction     right
+      }
+      Schematic {
+        Location      [0, 0; 270, 185]
+        ZoomFactor    1
+        SliderPosition [0, 0]
+        ShowBrowser   off
+        BrowserWidth  100
+        Component {
+          Type          Constant
+          Name          "P_PV"
+          Show          on
+          Position      [90, 85]
+          Direction     right
+          Flipped       off
+          LabelPosition south
+          Frame         [-20, -10; 20, 10]
+          Parameter {
+            Variable      "Value"
+            Value         "3000"
+            Show          off
+          }
+          Parameter {
+            Variable      "DataType"
+            Value         "10"
+            Show          off
+          }
+        }
+        Component {
+          Type          Sum
+          Name          "Sum4"
+          Show          off
+          Position      [155, 85]
+          Direction     up
+          Flipped       off
+          LabelPosition south
+          Parameter {
+            Variable      "IconShape"
+            Value         "2"
+            Show          off
+          }
+          Parameter {
+            Variable      "Inputs"
+            Value         "|++"
+            Show          off
+          }
+          Parameter {
+            Variable      "DataType"
+            Value         "11"
+            Show          off
+          }
+          Parameter {
+            Variable      "DataTypeOverflowMode"
+            Value         "1"
+            Show          off
+          }
+        }
+        Component {
+          Type          Step
+          Name          "Step"
+          Show          on
+          Position      [130, 115]
+          Direction     right
+          Flipped       off
+          LabelPosition westSouthwest
+          Parameter {
+            Variable      "Time"
+            Value         "0.3"
+            Show          on
+          }
+          Parameter {
+            Variable      "Before"
+            Value         "0"
+            Show          off
+          }
+          Parameter {
+            Variable      "After"
+            Value         "-1500"
+            Show          on
+          }
+          Parameter {
+            Variable      "DataType"
+            Value         "10"
+            Show          off
+          }
+        }
+        Component {
+          Type          ManualSignalSwitch
+          Name          "Mode"
+          Show          on
+          Position      [200, 70]
+          Direction     right
+          Flipped       off
+          LabelPosition south
+          Parameter {
+            Variable      "SwitchState"
+            Value         "1"
+            Show          off
+          }
+        }
+        Component {
+          Type          Output
+          Name          "1"
+          Show          on
+          Position      [250, 70]
+          Direction     right
+          Flipped       off
+          LabelPosition south
+          Parameter {
+            Variable      "Index"
+            Value         "1"
+            Show          on
+          }
+          Parameter {
+            Variable      "Width"
+            Value         "-1"
+            Show          off
+          }
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "Step"
+          SrcTerminal   1
+          Points        [155, 115]
+          DstComponent  "Sum4"
+          DstTerminal   3
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "P_PV"
+          SrcTerminal   1
+          Points        [130, 85]
+          Branch {
+            DstComponent  "Sum4"
+            DstTerminal   2
+          }
+          Branch {
+            Points        [130, 65]
+            DstComponent  "Mode"
+            DstTerminal   2
+          }
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "Sum4"
+          SrcTerminal   1
+          DstComponent  "Mode"
+          DstTerminal   3
+        }
+        Connection {
+          Type          Signal
+          SrcComponent  "Mode"
+          SrcTerminal   1
+          Points        [220, 70]
+          DstComponent  "1"
+          DstTerminal   1
+        }
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "V_dc"
@@ -3896,39 +3982,9 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Step"
+      SrcComponent  "Sub"
       SrcTerminal   1
-      Points        [250, 620]
-      DstComponent  "Sum4"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "P_PV"
-      SrcTerminal   1
-      Points        [225, 590]
-      Branch {
-        DstComponent  "Sum4"
-        DstTerminal   2
-      }
-      Branch {
-        Points        [225, 570]
-        DstComponent  "Mode"
-        DstTerminal   2
-      }
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Sum4"
-      SrcTerminal   1
-      DstComponent  "Mode"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Mode"
-      SrcTerminal   1
-      Points        [320, 575]
+      Points        [320, 620]
       DstComponent  "Sum5"
       DstTerminal   3
     }
